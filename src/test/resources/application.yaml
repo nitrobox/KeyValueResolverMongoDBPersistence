@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      database: ${MONGODB_DATABASE:document_management}
+      uri: ${MONGODB_URI:mongodb://localhost:27017}
+      auto-index-creation: true
+  mongodb:
+    embedded:
+      version: 4.0.12
