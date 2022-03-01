@@ -21,7 +21,7 @@ java.sourceCompatibility = 11
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'com.nitrobox:keyvalueresolver:0.3.0'
+    implementation 'com.nitrobox:keyvalueresolver:0.5.0'
     
     implementation 'org.slf4j:slf4j-api:1.7.36'
 
@@ -51,7 +51,7 @@ repositories {
     mavenLocal()
     maven {
         name = "GitHubPackagesRoperty"
-        url = uri("https://maven.pkg.github.com/nitrobox/keyvaluesresolver")
+        url = uri("https://maven.pkg.github.com/nitrobox/KeyValuesResolver")
         credentials {
             username = project.findProperty("github.user") ?: System.getenv("GITHUB_USER")
             password = project.findProperty("github.token") ?: System.getenv("GITHUB_TOKEN")
