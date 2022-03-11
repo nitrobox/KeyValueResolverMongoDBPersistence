@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MongoPersistence implements Persistence {
 
-    private final KeyValuesResolverKeyRepository keyRepository;
-    private final KeyValuesResolverValuesRepository valuesRepository;
+    private final KeyValueResolverKeyRepository keyRepository;
+    private final KeyValueResolverValuesRepository valuesRepository;
 
-    public MongoPersistence(KeyValuesResolverKeyRepository keyRepository, KeyValuesResolverValuesRepository valuesRepository) {
+    public MongoPersistence(KeyValueResolverKeyRepository keyRepository, KeyValueResolverValuesRepository valuesRepository) {
         this.keyRepository = keyRepository;
         this.valuesRepository = valuesRepository;
     }

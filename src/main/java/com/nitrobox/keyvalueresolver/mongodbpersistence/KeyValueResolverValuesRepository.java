@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface KeyValuesResolverValuesRepository extends MongoRepository<DomainSpecificValueEntity, String> {
+public interface KeyValueResolverValuesRepository extends MongoRepository<DomainSpecificValueEntity, String> {
 
     List<DomainSpecificValueEntity> findByKey(String key);
     void deleteByKey(String key);

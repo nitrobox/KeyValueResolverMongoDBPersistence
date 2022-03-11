@@ -34,9 +34,9 @@ class MongoPersistenceTest {
     protected MongoTemplate mongoTemplate;
 
     @Autowired
-    KeyValuesResolverKeyRepository keyRepository;
+    KeyValueResolverKeyRepository keyRepository;
     @Autowired
-    KeyValuesResolverValuesRepository valuesRepository;
+    KeyValueResolverValuesRepository valuesRepository;
 
     @BeforeEach
     protected void setUpInMemoryMongoDB() throws Exception {
