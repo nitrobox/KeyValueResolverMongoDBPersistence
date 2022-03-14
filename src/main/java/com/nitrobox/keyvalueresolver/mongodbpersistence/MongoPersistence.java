@@ -72,7 +72,7 @@ public class MongoPersistence implements Persistence {
 
     @Override
     public void remove(final String key, final DomainSpecificValue domainSpecificValue) {
-        valuesRepository.deleteByKeyAndChangeSetAndDomainValuesPattern(key, domainSpecificValue.getChangeSet(),
+        valuesRepository.deleteByIdKeyAndIdChangeSetAndIdDomainValuesPattern(key, domainSpecificValue.getChangeSet(),
                 domainSpecificValue.getPattern());
     }
 }

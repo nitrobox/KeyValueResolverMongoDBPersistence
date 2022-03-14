@@ -9,5 +9,5 @@ public interface KeyValueResolverValuesRepository extends MongoRepository<Domain
 
     List<DomainSpecificValueEntity> findByIdKey(String key);
     void deleteByIdKey(String key);
-    void deleteByKeyAndChangeSetAndDomainValuesPattern(String key, String changeSet, String pattern);
+    void deleteByIdKeyAndIdChangeSetAndIdDomainValuesPattern(String key, String changeSet, String pattern);
 }
