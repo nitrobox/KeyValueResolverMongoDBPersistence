@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KeyValueResolverValuesRepository extends MongoRepository<DomainSpecificValueEntity, String> {
 
-    List<DomainSpecificValueEntity> findByKey(String key);
-    void deleteByKey(String key);
+    List<DomainSpecificValueEntity> findByIdKey(String key);
+    void deleteByIdKey(String key);
     void deleteByKeyAndChangeSetAndDomainValuesPattern(String key, String changeSet, String pattern);
 }

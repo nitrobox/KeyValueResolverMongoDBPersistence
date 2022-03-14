@@ -4,21 +4,26 @@ import com.nitrobox.keyvalueresolver.DomainSpecificValue;
 import com.nitrobox.keyvalueresolver.DomainSpecificValueFactory;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("DomainSpecificValue")
 public class DomainSpecificValueEntity {
 
-    private final String key;
-    private final String value;
-    private final String changeSet;
-    private final String domainValuesPattern;
+    @Id
+    private Key id;
+    private String value;
+
+    private DomainSpecificValueEntity() {}
+
+    private DomainSpecificValueEntity(Key id, String value) {
+        this.id = id;
+        this.value = value;
+    }
 
     public DomainSpecificValueEntity(String key, String value, String changeSet, String domainValuesPattern) {
-        this.key = key;
+        this.id = new Key(key, changeSet, domainValuesPattern);
         this.value = value;
-        this.changeSet = changeSet;
-        this.domainValuesPattern = domainValuesPattern;
     }
 
     public static List<DomainSpecificValue> toDomainSpecificValues(DomainSpecificValueFactory factory,
@@ -29,11 +34,11 @@ public class DomainSpecificValueEntity {
     }
 
     public DomainSpecificValue toDomainSpecificValue(DomainSpecificValueFactory domainSpecificValueFactory) {
-        return domainSpecificValueFactory.createFromPattern(value, changeSet, domainValuesPattern);
+        return domainSpecificValueFactory.createFromPattern(value, id.changeSet, id.domainValuesPattern);
     }
 
     public String getKey() {
-        return key;
+        return id.key;
     }
 
     public String getValue() {
@@ -41,10 +46,22 @@ public class DomainSpecificValueEntity {
     }
 
     public String getChangeSet() {
-        return changeSet;
+        return id.changeSet;
     }
 
     public String getDomainValuesPattern() {
-        return domainValuesPattern;
+        return id.domainValuesPattern;
+    }
+
+    private class Key {
+        private final String key;
+        private final String changeSet;
+        private final String domainValuesPattern;
+
+        public Key(String key, String changeSet, String domainValuesPattern) {
+            this.key = key;
+            this.changeSet = changeSet;
+            this.domainValuesPattern = domainValuesPattern;
+        }
     }
 }

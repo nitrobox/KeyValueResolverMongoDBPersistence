@@ -30,7 +30,7 @@ public class MongoPersistence implements Persistence {
         return keyRepository.findById(key)
                 .map(keyEntity ->
                         createKeyValues(factory, keyEntity,
-                                toDomainSpecificValues(factory, valuesRepository.findByKey(keyEntity.getKey()))))
+                                toDomainSpecificValues(factory, valuesRepository.findByIdKey(keyEntity.getKey()))))
                 .orElse(null);
     }
 
@@ -67,7 +67,7 @@ public class MongoPersistence implements Persistence {
     @Override
     public void remove(String key) {
         keyRepository.deleteById(key);
-        valuesRepository.deleteByKey(key);
+        valuesRepository.deleteByIdKey(key);
     }
 
     @Override
