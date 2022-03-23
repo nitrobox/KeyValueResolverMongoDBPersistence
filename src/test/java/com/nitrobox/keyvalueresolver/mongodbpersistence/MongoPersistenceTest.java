@@ -67,16 +67,21 @@ class MongoPersistenceTest {
         roperty.set("key1", "value1_dom1", "descr1", "domVal1");
         roperty.set("key2", "value2", "descr2", "domVal1");
         roperty.set("key3", "value3", "descr3", "domVal1", "domVal2");
+        roperty.set("key4", "value4", "descr4", "domVal1", "domVal2");
         roperty.remove("key1", "domVal1", "domVal2");
         roperty.removeKey("key3");
+        roperty.remove("key4", "domVal1", "domVal2");
         assertThat((String) roperty.get("key1", "domVal1", "domVal2")).isEqualTo("value1_dom1");
         assertThat((String) roperty.get("key2", "domVal1", "domVal2")).isEqualTo("value2");
         assertThat((String) roperty.get("key3", "domVal1", "domVal2")).isNull();
+        assertThat((String) roperty.get("key4")).isNull();
+        assertThat(roperty.getKeyValues("key4")).isNotNull();
 
         final KeyValueResolver roperty2 = new KeyValueResolverImpl(new MongoPersistence(keyRepository, valuesRepository), "domain1",
                 "domain2");
         assertThat((String) roperty2.get("key1", "domVal1", "domVal2")).isEqualTo("value1_dom1");
         assertThat((String) roperty2.get("key2", "domVal1", "domVal2")).isEqualTo("value2");
         assertThat((String) roperty2.get("key3", "domVal1", "domVal2")).isNull();
+        assertThat((String) roperty2.get("key4")).isNull();
     }
 }

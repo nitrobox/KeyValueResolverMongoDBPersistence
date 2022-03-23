@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
@@ -28,26 +29,27 @@ public class MongoPersistence implements Persistence {
     @Override
     public KeyValues load(String key, DomainSpecificValueFactory factory) {
         return keyRepository.findById(key)
-                .map(keyEntity ->
-                        createKeyValues(factory, keyEntity,
-                                toDomainSpecificValues(factory, valuesRepository.findByIdKey(keyEntity.getKey()))))
+                .map(keyEntity -> createKeyValues(factory, keyEntity, valuesRepository.findByIdKey(key)))
                 .orElse(null);
     }
 
     @Override
     public Collection<KeyValues> loadAll(DomainSpecificValueFactory factory) {
         final Map<String, List<DomainSpecificValueEntity>> valueEntityMap = new HashMap<>();
-                valuesRepository.findAll()
-                        .forEach(value -> valueEntityMap.computeIfAbsent(value.getKey(), key -> new ArrayList<>()).add(value));
+        valuesRepository.findAll()
+                .forEach(value -> valueEntityMap.computeIfAbsent(value.getKey(), key -> new ArrayList<>()).add(value));
         return keyRepository.findAll().stream()
-                .map(keyEntity -> createKeyValues(factory, keyEntity,
-                        toDomainSpecificValues(factory, valueEntityMap.get(keyEntity.getKey()))))
+                .map(keyEntity -> createKeyValues(factory, keyEntity, valueEntityMap.get(keyEntity.getKey())))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
-    private KeyValues createKeyValues(DomainSpecificValueFactory factory, KeyEntity keyEntity, List<DomainSpecificValue> values) {
+    private KeyValues createKeyValues(DomainSpecificValueFactory factory, KeyEntity keyEntity, List<DomainSpecificValueEntity> values) {
+        if (values == null || values.isEmpty()) {
+            return null;
+        }
         final KeyValues keyValues = keyEntity.toKeyValues(factory);
-        keyValues.setDomainSpecificValues(values);
+        keyValues.setDomainSpecificValues(toDomainSpecificValues(factory, values));
         return keyValues;
     }
 
