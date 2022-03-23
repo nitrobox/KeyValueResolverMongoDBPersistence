@@ -16,11 +16,6 @@ public class DomainSpecificValueEntity {
 
     private DomainSpecificValueEntity() {}
 
-    private DomainSpecificValueEntity(Key id, String value) {
-        this.id = id;
-        this.value = value;
-    }
-
     public DomainSpecificValueEntity(String key, String value, String changeSet, String domainValuesPattern) {
         this.id = new Key(key, changeSet, domainValuesPattern);
         this.value = value;
