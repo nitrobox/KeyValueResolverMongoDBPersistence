@@ -1,7 +1,9 @@
 package com.nitrobox.keyvalueresolver.mongodbpersistence;
 
+import com.nitrobox.keyvalueresolver.DomainSpecificValue;
 import com.nitrobox.keyvalueresolver.DomainSpecificValueFactory;
 import com.nitrobox.keyvalueresolver.KeyValues;
+import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,8 +19,8 @@ public class KeyEntity {
         this.description = description;
     }
 
-    public KeyValues toKeyValues(DomainSpecificValueFactory domainSpecificValueFactory) {
-        return new KeyValues(key, domainSpecificValueFactory, description);
+    public KeyValues toKeyValues(DomainSpecificValueFactory domainSpecificValueFactory, List<DomainSpecificValue> domainSpecificValues) {
+        return new KeyValues(key, domainSpecificValueFactory, description, domainSpecificValues);
     }
 
     public String getKey() {

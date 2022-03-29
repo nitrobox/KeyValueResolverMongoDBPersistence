@@ -83,5 +83,6 @@ class MongoPersistenceTest {
         assertThat((String) roperty2.get("key2", "domVal1", "domVal2")).isEqualTo("value2");
         assertThat((String) roperty2.get("key3", "domVal1", "domVal2")).isNull();
         assertThat((String) roperty2.get("key4")).isNull();
+        assertThat(roperty2.getKeyValues("key4")).isNotNull();
     }
 }

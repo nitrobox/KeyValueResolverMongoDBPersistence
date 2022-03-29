@@ -45,12 +45,7 @@ public class MongoPersistence implements Persistence {
     }
 
     private KeyValues createKeyValues(DomainSpecificValueFactory factory, KeyEntity keyEntity, List<DomainSpecificValueEntity> values) {
-        if (values == null || values.isEmpty()) {
-            return null;
-        }
-        final KeyValues keyValues = keyEntity.toKeyValues(factory);
-        keyValues.setDomainSpecificValues(toDomainSpecificValues(factory, values));
-        return keyValues;
+        return keyEntity.toKeyValues(factory, toDomainSpecificValues(factory, values));
     }
 
     @Override

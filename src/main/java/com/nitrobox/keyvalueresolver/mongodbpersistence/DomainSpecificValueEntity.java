@@ -2,6 +2,7 @@ package com.nitrobox.keyvalueresolver.mongodbpersistence;
 
 import com.nitrobox.keyvalueresolver.DomainSpecificValue;
 import com.nitrobox.keyvalueresolver.DomainSpecificValueFactory;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.annotation.Id;
@@ -23,6 +24,9 @@ public class DomainSpecificValueEntity {
 
     public static List<DomainSpecificValue> toDomainSpecificValues(DomainSpecificValueFactory factory,
             List<DomainSpecificValueEntity> entities) {
+        if (entities == null) {
+            return new ArrayList<>();
+        }
         return entities.stream()
                 .map(entity -> entity.toDomainSpecificValue(factory))
                 .collect(Collectors.toList());
