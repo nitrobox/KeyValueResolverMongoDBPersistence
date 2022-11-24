@@ -2,16 +2,25 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'org.ajoberstar.reckon' version '0.13.2'
-    id "com.github.ben-manes.versions" version "0.42.0"
-    id 'org.springframework.boot' version '2.6.4' apply false
+    id "com.github.ben-manes.versions" version "0.44.0"
+    id 'org.springframework.boot' version '2.7.5' apply false
+    id "org.sonarqube" version "3.5.0.2730"
 }
 
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'io.spring.dependency-management'
 
 dependencyManagement {
     imports {
         mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
     }
 }
 
@@ -21,9 +30,9 @@ java.sourceCompatibility = 11
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'com.nitrobox:keyvalueresolver:0.22.0'
-    
-    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'com.nitrobox:keyvalueresolver:0.28.0'
+
+    implementation 'org.slf4j:slf4j-api:2.0.4'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.assertj:assertj-core:3.22.0'
@@ -91,4 +100,12 @@ publishing {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "nitrobox_KeyValueResolverMongoDBPersistence"
+        property "sonar.organization", "nitrobox"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
