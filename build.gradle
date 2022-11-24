@@ -104,7 +104,7 @@ tasks.withType(JavaCompile) {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "nitrobox_java_library_keyvalueresolver-mongodbpersistence"
+        property "sonar.projectKey", "nitrobox_KeyValueResolverMongoDBPersistence"
         property "sonar.organization", "nitrobox"
         property "sonar.host.url", "https://sonarcloud.io"
     }
