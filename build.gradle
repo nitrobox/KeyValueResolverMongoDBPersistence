@@ -45,14 +45,25 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
+
 
 reckon {
     scopeFromProp()
     snapshotFromProp()
 }
+
+apply plugin: "jacoco"
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
 
 reckonTagCreate.dependsOn check
 
