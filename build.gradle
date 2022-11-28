@@ -30,7 +30,7 @@ java.sourceCompatibility = 11
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'com.nitrobox:keyvalueresolver:0.32.0'
+    implementation 'com.nitrobox:keyvalueresolver:0.33.0'
 
     implementation 'org.slf4j:slf4j-api:2.0.4'
 
